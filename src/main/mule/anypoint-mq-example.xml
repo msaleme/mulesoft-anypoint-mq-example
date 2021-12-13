@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="anypoint-mq-exampleFlow" doc:id="ce586ca1-23fd-46f9-a35c-ea33dcfc8d12" >
+		<anypoint-mq:subscriber doc:name="Subscriber" doc:id="2cfe2fc0-a8ef-4449-818d-6d3838bc9a68" />
+		<ee:transform doc:name="Transform Message" doc:id="943b65de-7d5d-448c-808b-a4f48007c003" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<anypoint-mq:publish doc:name="Publish" doc:id="bcdc3ade-6afb-458a-bcdd-173fb5d50492" />
+	</flow>
+	<flow name="anypoint-mq-exampleFlow1" doc:id="04a971ce-50df-49a5-9555-c986d5141b36" >
+		<http:listener doc:name="Listener" doc:id="57d04516-8075-40d9-8479-5917913fe324" />
+		<anypoint-mq:consume doc:name="Consume" doc:id="20cf09ce-7c6e-44cc-a4dc-1d4b33609e0b" />
+		<logger level="INFO" doc:name="Logger" doc:id="29d3fc0a-dc4a-4ea3-ae32-0d887ea32715" />
+		<ee:transform doc:name="Transform Message" doc:id="13d30a5b-9e7a-4e17-8df9-332ce54a4ae1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
